@@ -4375,6 +4375,7 @@ CONFIG_bridge-utils=y
 #
 CONFIG_autostart=y
 # CONFIG_gpio-demo is not set
+CONFIG_lat-bw-mem-tests=y
 CONFIG_mark-app=y
 CONFIG_myapp-test=y
 CONFIG_peekpoke=y
