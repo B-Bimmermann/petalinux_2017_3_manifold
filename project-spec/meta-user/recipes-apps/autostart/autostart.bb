@@ -13,13 +13,15 @@ SRC_URI = "file://autostart.sh \
 	   file://Makefile \
 	   file://autostart.c \
 		  "
+INITSCRIPT_NAME = "small_mani"
+#INITSCRIPT_PARAMS = "start 99 S ."
+INITSCRIPT_PARAMS = "defaults"
+INITSCRIPT_PACKAGES = "small_mani"
+
 
 # set small_mani.sh as a star script
 inherit update-rc.d
 
-INITSCRIPT_NAME = "small_mani"
-INITSCRIPT_PACKAGES = "small_mani"
-INITSCRIPT_PARAMS = "start 99 S ."
 
 S = "${WORKDIR}"
 
@@ -29,9 +31,11 @@ do_install() {
 	     install -m 0755 autostart.sh ${D}/data
 	     install -m 0755 small_mani.sh ${D}/data
 	     cp -r ${WORKDIR}/benchmarks ${D}/data
-	     install -d ${D}${sysconfdir}/init.d
-	     install -m 0755 ${S}/small_mani.sh ${D}${sysconfdir}/init.d/myapp-init
+	     install -d ${D}${sysconfdir}/init.d/
+	     install -m 0755 ${S}/small_mani.sh ${D}${sysconfdir}/init.d/small_mani
 }
+
+RDEPENDS_${PN} = "bash"
 
 FILES_${PN} = " \
   /data \

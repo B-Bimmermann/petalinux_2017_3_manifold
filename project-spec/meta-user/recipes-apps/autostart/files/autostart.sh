@@ -1,5 +1,11 @@
 #!/bin/bash
 
+T=`grep -q "^flags.*hypervisor" /proc/cpuinfo`
+if [[ $? -ne 0 ]]; then
+	echo "not running in a VM (QSIM/QEMU), bailing out"
+	exit
+fi
+
 echo DEBUG: IN AUTOSTART : START
 
 echo DEBUG: IN AUTOSTART : GET CPUS
@@ -36,7 +42,7 @@ fi
 
 echo Executing benchmark
 /sbin/chmod +x ./runme.sh
-/sbin/ash ./runme.sh
+/sbin/bash ./runme.sh
 
 echo --- program exit, will shutdown shortly... ---
 # Spin forever.

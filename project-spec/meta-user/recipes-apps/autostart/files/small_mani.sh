@@ -1,5 +1,11 @@
 #!/bin/bash
 
+T=`grep -q "^flags.*hypervisor" /proc/cpuinfo`
+if [[ $? -ne 0 ]]; then
+	echo "not running in a VM (QSIM/QEMU), bailing out"
+	exit
+fi
+
 export NCPUS=`grep processor /proc/cpuinfo | wc -l`
 
 echo Number of CPUs: $NCPUS
