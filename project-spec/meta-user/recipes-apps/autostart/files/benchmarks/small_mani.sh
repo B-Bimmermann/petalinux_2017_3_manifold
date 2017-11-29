@@ -31,10 +31,8 @@ echo Executing benchmark ...
 
 #start the real executing and stop the "fast forwarding"
 mark_app
-echo "START START START"
-lat-bw-mem-tests
-ECHO "END END END"
-echo "--- program exit, will shutdown shortly... ---"
+#lat-bw-mem-tests
+echo --- program exit, will shutdown shortly... ---
 # Write dead to the PCMR register to stop the emulation
 mark_app "end"
 # ANSTATT VON mark_app NUR HIER ein programm mit set_n_cpus  

@@ -8,43 +8,37 @@ LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
 
 SRC_URI = "file://autostart.sh \
-	   file://small_mani.sh \
 	   file://benchmarks \	
-	   file://Makefile \
-	   file://autostart.c \
 		  "
-INITSCRIPT_NAME = "small_mani"
-#INITSCRIPT_PARAMS = "start 99 S ."
-INITSCRIPT_PARAMS = "defaults"
-INITSCRIPT_PACKAGES = "small_mani"
-
-
-# set small_mani.sh as a star script
-inherit update-rc.d
-
 
 S = "${WORKDIR}"
+FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
+
+
+# set autostart.sh as a star script
+inherit update-rc.d
+
+# set the initscript name
+INITSCRIPT_NAME = "autostart.sh"
+# set the script parameter
+INITSCRIPT_PARAMS = "defaults"
 
 # copy the script and all banchmarks for manifold
 do_install() {
              install -d ${D}/data/benchmarks
-	     install -m 0755 autostart.sh ${D}/data
-	     install -m 0755 small_mani.sh ${D}/data
-	     cp -r ${WORKDIR}/benchmarks ${D}/data
+	     cp      -r ${WORKDIR}/benchmarks   ${D}/data
+             cp      -r ${WORKDIR}/autostart.sh ${D}/data
 	     install -d ${D}${sysconfdir}/init.d/
-	     install -m 0755 ${S}/small_mani.sh ${D}${sysconfdir}/init.d/small_mani
+	     install -m 0755 ${S}/autostart.sh ${D}${sysconfdir}/init.d/autostart.sh
 }
 
-RDEPENDS_${PN} = "bash"
+RDEPENDS_${PN} = "bash \
+lat-bw-mem-tests \
+"
 
 FILES_${PN} = " \
   /data \
-  /data/autostart.sh  \
-  /data/small_mani.sh  \
   /data/*  \
-  /etc \
-  /etc/init.d \
-  /etc/init.d/small_mani \
   ${sysconfdir}/* \
 \"
 
