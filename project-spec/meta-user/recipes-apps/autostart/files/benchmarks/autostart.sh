@@ -33,7 +33,7 @@ echo Executing benchmark ...
 echo "START mark_app START mark_app START mark_app"
 mark_app
 echo "START START START"
-lat-bw-mem-tests
+#lat-bw-mem-tests
 echo "END END END"
 echo "--- program exit, will shutdown shortly... ---"
 # Write dead to the PCMR register to stop the emulation
