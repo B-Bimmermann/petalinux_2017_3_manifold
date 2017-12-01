@@ -16,20 +16,18 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
 
 # set autostart.sh as a star script
-inherit update-rc.d
+###inherit update-rc.d
 
 # set the initscript name
-INITSCRIPT_NAME = "autostart.sh"
+###INITSCRIPT_NAME = "autostart.sh"
 # set the script parameter
-INITSCRIPT_PARAMS = "defaults"
+###INITSCRIPT_PARAMS = "defaults"
 
 # copy the script and all banchmarks for manifold
 do_install() {
              install -d ${D}/data/benchmarks
 	     cp      -r ${WORKDIR}/benchmarks   ${D}/data
              cp      -r ${WORKDIR}/autostart.sh ${D}/data
-	     install -d ${D}${sysconfdir}/init.d/
-	     install -m 0755 ${S}/autostart.sh ${D}${sysconfdir}/init.d/autostart.sh
 }
 
 RDEPENDS_${PN} = "bash \
