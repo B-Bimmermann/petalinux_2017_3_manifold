@@ -16,22 +16,18 @@ echo Number of CPUs: $NCPUS | /sbin/qsim_out
 cd /data
 echo Executing benchmark ...
 
-####### THIS DOES NOT WORK AT THE MOMENT ...
-# untar the benchmark
-#tar -xf bc.tar
-#if [ $? != 0 ]; then
-#        echo Untar input failed. Are you providing a .tar archive? 
-#fi
-#if [ ! -e runme.sh ]; then
-#        echo \"runme.sh\" not found. Input .tar must contain this. | /sbin/qsim_out
-#fi
-#chmod +x runme.sh 
-#./runme.sh
+# unset udhcpc timeout
+echo 0 > /proc/sys/kernel/hung_task_timeout_secs
 
+
+# remove all unnecessary network interfaces 
+ifdown eth0
+ifdown lo
 
 #start the real executing and stop the "fast forwarding"
 mark_app
 echo "START START START"
+echo "START 1"
 lat-bw-mem-tests
 ECHO "END END END"
 echo "--- program exit, will shutdown shortly... ---"
