@@ -10,7 +10,7 @@
 # Maybe we don't need it...
 export NCPUS=`grep processor /proc/cpuinfo | wc -l`
 echo Number of CPUs: $NCPUS
-echo Number of CPUs: $NCPUS | /sbin/qsim_out
+#echo Number of CPUs: $NCPUS | /sbin/qsim_out
 
 # goto data
 cd /data
@@ -25,12 +25,12 @@ ifdown eth0
 ifdown lo
 
 #start the real executing and stop the "fast forwarding"
-mark_app
+#mark_app
 echo "START"
 lat-bw-mem-tests
 ECHO "END"
 echo "--- program exit, will shutdown shortly... ---"
 # Write dead to the PCMR register to stop the emulation
-mark_app "end"
-# ANSTATT VON mark_app NUR HIER ein programm mit set_n_cpus  
+#mark_app "end"
+
 
