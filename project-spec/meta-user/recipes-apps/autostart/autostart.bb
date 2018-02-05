@@ -8,7 +8,7 @@ LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
 
 SRC_URI = " \
-	file://autostart.sh \
+	file://autostart \
 "
 
 S = "${WORKDIR}"
@@ -18,16 +18,17 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 inherit update-rc.d
 
 # set the initscript name
-INITSCRIPT_NAME = "autostart.sh"
-
+INITSCRIPT_NAME = "autostart"
 # set the script parameter
 INITSCRIPT_PARAMS = "defaults"
 
 # copy the script and all banchmarks for manifold
 do_install() {
-	install -d ${D}${sysconfdir}/init.d
-	install -m 0755 ${S}/autostart.sh ${D}${sysconfdir}/init.d/autostart.sh
+        install -d ${D}${sysconfdir}/init.d
+	install -m 0755 ${S}/autostart ${D}${sysconfdir}/init.d/autostart
+	chmod a+x ${D}${sysconfdir}/init.d/autostart
 }
+
 
 RDEPENDS_${PN} = " \
 	bash \
