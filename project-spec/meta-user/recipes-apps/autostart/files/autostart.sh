@@ -1,42 +1,19 @@
 #!/bin/bash
 
-#T=`grep -q "^flags.*hypervisor" /proc/cpuinfo`
-#if [[ $? -ne 0 ]]; then
-#	echo "not running in a VM (QSIM/QEMU), bailing out"
-#	exit
-#fi
-
-# Don't know the need of that.
-# Maybe we don't need it...
-export NCPUS=`grep processor /proc/cpuinfo | wc -l`
-echo Number of CPUs: $NCPUS
-echo Number of CPUs: $NCPUS | /sbin/qsim_out
-
 # goto data
-cd /data
-echo Executing benchmark ...
+#cd /data/benchmarks
+echo -n "Start the Script on "
 
-####### THIS DOES NOT WORK AT THE MOMENT ...
-# untar the benchmark
-#tar -xf bc.tar
-#if [ $? != 0 ]; then
-#        echo Untar input failed. Are you providing a .tar archive? 
-#fi
-#if [ ! -e runme.sh ]; then
-#        echo \"runme.sh\" not found. Input .tar must contain this. | /sbin/qsim_out
-#fi
-#chmod +x runme.sh 
-#./runme.sh
+# Get the Adress of eth0. If we are in the Simulation
+# the adress is set from the device-tree and is
+# 00:0a:35:00:22:01
+T=`cat /sys/class/net/eth0/address`
 
-
-#start the real executing and stop the "fast forwarding"
-echo "START mark_app START mark_app START mark_app"
-mark_app
-echo "START START START"
-lat-bw-mem-tests
-echo "END END END"
-echo "--- program exit, will shutdown shortly... ---"
-# Write dead to the PCMR register to stop the emulation
-mark_app "end"
-# ANSTATT VON mark_app NUR HIER ein programm mit set_n_cpus  
-
+# If the Address of eth0 is 00:0a:35:00:22:01, we are in a simulation
+if [[ "$T" = "00:0a:35:00:22:01" ]]; then
+	# If the Address of eth0 is 00:0a:35:00:22:01, we are in a simulation
+	echo "a VM (of the ZCU102)" 
+else
+	# We are on the real Hardware
+	echo "a real ZCU102 (real Hardware)"
+fi
