@@ -15,27 +15,18 @@ for THREADS in $BW_MEM_THREADS; do
         echo "memory read bandwidth ($THREADS threads) [segment size in MByte vs bandwidth in MByte/s]"
         for SIZE in $BW_MEM_SIZES; do
                 echo "bw_mem -N 1 -P $THREADS ${SIZE}k rd"
-                cat /proc/uptime
-                uptime
-                time bw_mem -N 1 -P $THREADS ${SIZE}k rd
-                cat /proc/uptime
-                uptime
-                echo
+		/usr/bin/time bw_mem -N 1 -P $THREADS ${SIZE}k rd 2> /dev/console
         done
 
         echo
         echo "memory write bandwidth ($THREADS threads) [segment size in MByte vs bandwidth in MByte/s]"
         for SIZE in $BW_MEM_SIZES; do
                 echo "bw_mem -N 1 -P $THREADS ${SIZE}k wr"
-                cat /proc/uptime
-                uptime
-                time bw_mem -N 1 -P $THREADS ${SIZE}k wr
-                cat /proc/uptime
-                uptime
-                echo
+                /usr/bin/time bw_mem -N 1 -P $THREADS ${SIZE}k wr 2> /dev/console
         done
+	echo
 done
 
-cat /proc/uptime
+# Get the time
 uptime
-
+cat /proc/uptime

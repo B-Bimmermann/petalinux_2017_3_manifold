@@ -24,9 +24,8 @@ ifdown lo
 echo "Switch from fast forwarding to simulation"
 echo "The next echo can take up to 10 minutes"
 mark_app
-echo "START"
+echo "START START MY START"
 lat-bw-mem-tests
-ECHO "END"
-echo "--- program exit, will shutdown shortly... ---"
+echo "END END MY END "
 # Write dead to the PCMR register to stop the emulation
 mark_app "end"

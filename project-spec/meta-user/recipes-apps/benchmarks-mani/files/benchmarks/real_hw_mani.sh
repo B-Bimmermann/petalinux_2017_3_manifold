@@ -19,8 +19,8 @@ ifdown eth0
 ifdown lo
 
 #start
-echo "START"
-lat-bw-mem-tests
+echo "START START  START"
+lat-bw-mem-tests 
 echo "END"
 
 # Maybe we should here shoutdown ? or reboot ?
