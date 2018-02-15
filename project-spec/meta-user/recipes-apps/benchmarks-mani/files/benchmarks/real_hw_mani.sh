@@ -1,11 +1,5 @@
 #!/bin/bash
 
-#T=`grep -q "^flags.*hypervisor" /proc/cpuinfo`
-#if [[ $? -ne 0 ]]; then
-#	echo "not running in a VM (QSIM/QEMU), bailing out"
-#	exit
-#fi
-
 # Don't know the need of that.
 # Maybe we don't need it...
 export NCPUS=`grep processor /proc/cpuinfo | wc -l`
@@ -18,9 +12,43 @@ echo 0 > /proc/sys/kernel/hung_task_timeout_secs
 ifdown eth0
 ifdown lo
 
-#start
-echo "START START  START"
-lat-bw-mem-tests 
-echo "END"
+# sleep a short time for the ifdown kernel message
+sleep 2
+
+#initilize it here to save a little bit time
+i="0"
+y="0"
+z="0"
+test_times=10
+
+#start the real executing and stop the "fast forwarding"
+echo "START START MY START"
+
+echo "Sleep-Test to $test_times"
+while [ $i -lt $test_times ]
+do
+	i=$[$i+1]
+	echo "i is: " + $i
+	sleep 1
+done
+
+echo "Sleep-Test to $test_times"
+while [ $y -lt $test_times ]
+do
+	y=$[$y+1]
+	echo "y is: " + $y
+	/usr/bin/time sleep 1 2> /dev/console
+done
+
+echo "lat-bw-mem-tests to $test_times"
+while [ $z -lt $test_times ]
+do
+	z=$[$z+1]
+	lat-bw-mem-tests
+done
+
+echo "END END MY END"
+echo ""
+echo "END END MY END"
 
 # Maybe we should here shoutdown ? or reboot ?
