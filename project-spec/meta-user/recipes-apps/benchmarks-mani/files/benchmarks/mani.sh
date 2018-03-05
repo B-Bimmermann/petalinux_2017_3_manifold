@@ -21,7 +21,7 @@ sleep 2
 i="0"
 y="0"
 z="0"
-test_times=10
+test_times=5
 
 #start the real executing and stop the "fast forwarding"
 echo "Switch from fast forwarding to simulation"
@@ -30,13 +30,13 @@ mark_app
 
 echo "START START MY START"
 
-echo "Sleep-Test to $test_times"
-while [ $i -lt $test_times ]
-do
-	i=$[$i+1]
-	echo "i is: " + $i
-	sleep 1
-done
+#echo "Sleep-Test to $test_times"
+#while [ $i -lt $test_times ]
+#do
+#	i=$[$i+1]
+#	echo "i is: " + $i
+#	sleep 1
+#done
 
 echo "Sleep-Test to $test_times"
 while [ $y -lt $test_times ]
